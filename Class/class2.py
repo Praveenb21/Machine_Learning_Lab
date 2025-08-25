@@ -18,9 +18,24 @@ df['city'].fillna(df['city'].mode()[0], inplace=True)
 df['marks'].fillna(method='bfill', inplace=True)
 print("DataFrame after handling missing values:\n", df)
 print("missing values after handling:\n", df.isnull().sum())
+
+
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 mm  = MinMaxScaler()
 std = StandardScaler()
 df[['mm_age', 'mm_height']] = mm.fit_transform(df[['age', 'height']])
 df[['std_weight']] = std.fit_transform(df[['weight']])
 print("DataFrame after normalization and standardization:\n", df)
+
+
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+ohe = OneHotEncoder(sparse_output=False)
+ohe_array = ohe.fit_transform(df[['city']])
+ohe_columns = ohe.get_feature_names_out(['city'])
+df_ohe = pd.DataFrame(ohe_array, columns=ohe_columns)
+print("DataFrame after encoding:\n", df_ohe)
+
+le = LabelEncoder()
+df['city_le'] = le.fit_transform(df['city'])
+print("DataFrame after Label Encoding:\n", df)
+print("Encoded classes:", le.classes_)
