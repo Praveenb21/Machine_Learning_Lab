@@ -29,4 +29,3 @@ Y = pd.Series(le_dia.fit_transform(df['Diabetes']), name='Diabetes')
 
 print("\nAfter Encoding:\n", X)
 print("\nEncoded targets:\n", Y)
-
